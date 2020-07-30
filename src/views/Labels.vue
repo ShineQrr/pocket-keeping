@@ -11,6 +11,9 @@
         <CustomButton @click="createTag">新建标签</CustomButton>
       </div>
     </Layout>
+    <div v-show="$store.state.dialogAddVisible" class="mask"></div>
+    <!-- 新增标签弹框 -->
+    <dialog-add></dialog-add>
   </div>
 </template>
 
@@ -21,10 +24,11 @@ import { Component } from "vue-property-decorator";
 import CustomButton from "../components/CustomButton.vue";
 import { mixins } from "vue-class-component";
 import TagHelper from "../mixins/TagHelper";
+import DialogAdd from "../components/dialogs/DialogAdd.vue";
 
 @Component({
-  components: { CustomButton },
-  mixins: [TagHelper]
+  components: { CustomButton, DialogAdd },
+  mixins: [TagHelper],
 })
 export default class Labels extends mixins(TagHelper) {
   get tags() {
@@ -58,5 +62,15 @@ export default class Labels extends mixins(TagHelper) {
   text-align: center;
   padding: 16px;
   margin-top: 28px;
+}
+.mask {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000;
+  z-index: 1;
+  opacity: 0.75;
 }
 </style>

@@ -10,7 +10,7 @@
     </ul>
     <!-- 新增标签按钮 -->
     <div class="new">
-      <button @click="createTag">新增标签</button>
+      <button @click="createTagTest">新增标签new</button>
     </div>
   </div>
 </template>
@@ -46,6 +46,11 @@ export default class Tags extends mixins(TagHelper) {
     }
     this.$emit("update:value", this.selectedTags);
   }
+
+  createTagTest() {
+    this.$store.commit("changeVisualizationTrue");
+  }
+
   // 新增标签
   // addTag() {
   //   const tagName = window.prompt("请输入标签名");
@@ -96,5 +101,15 @@ export default class Tags extends mixins(TagHelper) {
       padding: 0 4px;
     }
   }
+}
+.mask {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000;
+  z-index: 1;
+  opacity: 0.75;
 }
 </style>

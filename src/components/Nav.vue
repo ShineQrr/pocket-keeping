@@ -1,6 +1,6 @@
 <template>
   <nav>
-    <router-link class="item" to="/money" active-class="selected">
+    <router-link class="item" to="/bookkeeping" active-class="selected">
       <Icon name="money" />
       <p>记账</p>
     </router-link>
@@ -17,7 +17,7 @@
 
 <script lang="ts">
 export default {
-  name: "Nav"
+  name: "Nav",
 };
 </script>
 

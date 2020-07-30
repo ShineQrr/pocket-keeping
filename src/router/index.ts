@@ -5,13 +5,19 @@ import Labels from '@/views/Labels.vue';
 import Statistics from '@/views/Statistics.vue';
 import NotFound from '@/views/NotFound.vue';
 import EditLabel from '@/views/EditLabel.vue';
+import BookKeeping from '../views/BookKeeping.vue';
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    redirect: '/money'
+    redirect: '/bookkeeping'
+  },
+  {
+    path: '/bookkeeping',
+    name: 'BookKeeping',
+    component: BookKeeping
   },
   {
     path: '/money',

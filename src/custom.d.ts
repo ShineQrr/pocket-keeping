@@ -1,5 +1,7 @@
 type RootState = {
+    dialogAddVisible: boolean;
     recordList: RecordItem[];
+    createRecordError: Error | null;
     tagList: Tag[];
     currentTag?: Tag;
 }

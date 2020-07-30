@@ -10,7 +10,9 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
+    dialogAddVisible: false,
     recordList: [],
+    createRecordError: null,
     tagList: [],
     currentTag: undefined
   } as RootState,
@@ -34,6 +36,14 @@ const store = new Vuex.Store({
     fetchTags(state) {
       state.tagList = JSON.parse(window.localStorage.getItem('tagList') || '[]');
     },
+    // 新增标签测试
+    changeVisualizationTrue(state) {
+      state.dialogAddVisible = true;
+    },
+    changeVisualization(state, name) {
+      state.dialogAddVisible = false;
+    },
+
     addTag(state, name: string) {
       const names = state.tagList.map(item => item.name);
       if (names.includes(name)) {

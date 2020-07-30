@@ -13,7 +13,7 @@ import Nav from "@/components/Nav.vue";
 export default {
   props: ["classPrefix"],
   name: "Layout",
-  components: { Nav }
+  components: { Nav },
 };
 </script>
 
@@ -21,7 +21,7 @@ export default {
 .layout-wrapper {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
 }
 .content {
   // 当content中内容超出高度，显示滚动条
