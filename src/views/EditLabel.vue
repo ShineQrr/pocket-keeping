@@ -2,7 +2,7 @@
   <Layout>
     <div class="navBar">
       <!-- 后退图标 -->
-      <Icon class="backIcon" name="left" @click="goBack"></Icon>
+      <Icon class="backIcon" name="arrow-left" @click="goBack"></Icon>
       <span class="title">编辑标签</span>
     </div>
     <div class="form-wrapper">
@@ -22,7 +22,7 @@ import FormItem from "@/components/Money/FormItem.vue";
 import CustomButton from "../components/CustomButton.vue";
 
 @Component({
-  components: { FormItem, CustomButton }
+  components: { FormItem, CustomButton },
 })
 export default class EditLabel extends Vue {
   get tag() {

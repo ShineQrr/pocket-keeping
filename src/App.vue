@@ -8,8 +8,11 @@
 <style lang="scss">
 @import "~@/assets/style/helper.scss";
 @import "~@/assets/style/reset.scss";
+@import "~@/assets/style/var.scss";
+
 body {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  // font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: $base-font-family;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #333;

@@ -58,6 +58,7 @@ export default class Nav extends Vue {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    color: $gray-6;
     // 图标样式
     .icon {
       width: 24px;

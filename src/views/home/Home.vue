@@ -183,10 +183,6 @@ export default class Home extends Vue {
   goKeeping() {
     this.$router.replace("/bookkeeping");
   }
-
-  mounted() {
-    console.log(dayjs("2018-09-08").month());
-  }
 }
 </script>
 
