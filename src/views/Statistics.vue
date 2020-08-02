@@ -1,27 +1,35 @@
 <template>
-  <Layout>
-    <Tabs class-prefix="type" :data-source="recordTypeList" :value.sync="type" />
-    <div class="chart-wrapper" ref="chartWrapper">
-      <Chart class="chart" :options="chartOptions" />
-    </div>
+  <div>
+    <Layout>
+      <!-- <template v-slot:header>
+        <nav-bar></nav-bar>
+      </template>-->
+      <!-- 标签页：收入支出切换 -->
+      <div class="tab-wrapper">
+        <Tabs class-prefix="type" :data-source="recordTypeList" :value.sync="type" />
+      </div>
+      <div class="chart-wrapper" ref="chartWrapper">
+        <Chart class="chart" :options="chartOptions" />
+      </div>
 
-    <ol v-if="groupedList.length>0">
-      <li v-for="(group, index) in groupedList" :key="index">
-        <h3 class="title">
-          {{beautify(group.title)}}
-          <span>￥{{group.total}}</span>
-        </h3>
-        <ol>
-          <li v-for="item in group.items" :key="item.id" class="record">
-            <span>{{tagString(item.tags)}}</span>
-            <span class="notes">{{item.notes}}</span>
-            <span>￥{{item.amount}}</span>
-          </li>
-        </ol>
-      </li>
-    </ol>
-    <div v-else>小主还没有收入呢~</div>
-  </Layout>
+      <ol v-if="groupedList.length>0">
+        <li v-for="(group, index) in groupedList" :key="index">
+          <h3 class="title">
+            {{beautify(group.title)}}
+            <span>￥{{group.total}}</span>
+          </h3>
+          <ol>
+            <li v-for="item in group.items" :key="item.id" class="record">
+              <span>{{tagString(item.tags)}}</span>
+              <span class="notes">{{item.notes}}</span>
+              <span>￥{{item.amount}}</span>
+            </li>
+          </ol>
+        </li>
+      </ol>
+      <div v-else>小主还没有收入呢~</div>
+    </Layout>
+  </div>
 </template>
 
 <script lang="ts">
@@ -34,6 +42,7 @@ import clone from "@/lib/clone";
 import Chart from "../components/Chart.vue";
 import * as _ from "lodash";
 import day from "dayjs";
+// import NavBar from "../components/NavBar.vue";
 
 @Component({
   components: { Tabs, Chart },
@@ -55,7 +64,7 @@ export default class Statistics extends Vue {
     if (day.isSame(now, "day")) {
       return "今天";
     } else if (day.isSame(now.subtract(1, "day"), "day")) {
-      console.log("hi");
+      // console.log("hi");
       return "昨天";
     } else if (day.isSame(now.subtract(2, "day"), "day")) {
       return "前天";
@@ -193,10 +202,54 @@ export default class Statistics extends Vue {
 </script>
 
 <style scoped lang="scss">
+@import "~@/assets/style/var.scss";
+// ::v-deep {
+//   .type-tabs-item {
+//     background: #eeeef0;
+//     &.selected {
+//       background: white;
+//       &::after {
+//         display: none;
+//       }
+//     }
+//   }
+//   .interval-tabs-item {
+//     height: 48px;
+//   }
+// }
+// .type-tabs-item {
+//   // background: $gray-9;
+//   height: $tab-item-hight;
+//   font-size: $tab-content-font-size;
+//   &.selected {
+//     border: 1px solid red;
+//     border-radius: 0.3 * $tab-item-hight;
+//     background: white;
+//     &::after {
+//       display: none;
+//     }
+//   }
+// }
+// .interval-tabs-item {
+//   height: 48px;
+// }
+.tab-wrapper {
+  width: 40%;
+  margin: 0 auto;
+  background-color: $gray-9;
+  border-radius: 0.3 * $tab-item-hight;
+}
 ::v-deep {
   .type-tabs-item {
-    background: #c4c4c4;
+    // background: $gray-9;
+    height: $tab-item-hight;
+    font-size: $tab-content-font-size;
+    font-weight: 500;
     &.selected {
+      box-sizing: border-box;
+      border: 3px solid $gray-9;
+      border-radius: 0.3 * $tab-item-hight;
+      font-weight: 700;
       background: white;
       &::after {
         display: none;
