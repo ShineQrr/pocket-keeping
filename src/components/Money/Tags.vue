@@ -10,7 +10,7 @@
     </ul>
     <!-- 新增标签按钮 -->
     <div class="new">
-      <button @click="createTagTest">新增标签new</button>
+      <button @click="createTagTest">新增标签</button>
     </div>
   </div>
 </template>
@@ -65,20 +65,26 @@ export default class Tags extends mixins(TagHelper) {
 </script>
 
 <style lang="scss" scoped>
+@import "~@/assets/style/var.scss";
+
 .tags {
-  background: white;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  flex-grow: 1;
+  // box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+  // background: white;
+  // display: flex;
+  // flex-direction: column;
+  // justify-content: flex-end;
+  // flex-grow: 1;
   font-size: 14px;
   padding: 16px;
+  box-sizing: content-box;
+  max-height: calc(100% - 44px);
+  overflow: auto;
   > .current {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
     > li {
-      background-color: #caf0fc;
+      background-color: lighten($red, 40%);
       height: 24px;
       line-height: 24px;
       border-radius: 12px;
@@ -86,7 +92,7 @@ export default class Tags extends mixins(TagHelper) {
       margin-right: 12px;
       margin-top: 4px;
       &.selected {
-        background: darken(#e7f4fd, 15%);
+        background: lighten($red, 10%);
         color: white;
         font-weight: 600;
       }

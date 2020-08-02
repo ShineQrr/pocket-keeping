@@ -12,24 +12,10 @@
       <span class="tag-label">标签名:</span>
       <input type="text" v-model="inputTagName" />
     </label>
-    <!-- <div class="van-hairline--top van-dialog__footer van-dialog__footer--buttons">
-      <button
-        @click="cancel"
-        class="van-button van-button--default van-button--large van-dialog__cancel"
-      >
-        <div class="van-button__content">
-          <span class="van-button__text" @click="cancel">取消</span>
-        </div>
-      </button>
-      <button
-        @click="determine"
-        class="van-button van-button--default van-button--large van-dialog__confirm van-hairline--left"
-      >
-        <div class="van-button__content">
-          <span class="van-button__text">确定</span>
-        </div>
-      </button>
-    </div>-->
+    <div class="buttons-wrapper">
+      <button @click="cancel">取消</button>
+      <button @click="determine" class="dialog-button-content">确定</button>
+    </div>
   </div>
 </template>
 
@@ -102,6 +88,7 @@ export default class DialogAdd extends Vue {
     padding: 10px 0;
     display: flex;
     align-items: center;
+    box-shadow: inset 0 -3px 3px -3px rgba(0, 0, 0, 0.1);
     .tag-label {
       padding: 0 24px;
     }
@@ -112,6 +99,23 @@ export default class DialogAdd extends Vue {
       background-color: transparent;
       border: none;
       padding: 14px 16px 14px 0;
+    }
+  }
+
+  .buttons-wrapper {
+    display: flex;
+    justify-content: space-around;
+    button {
+      box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+      width: 50%;
+      background-color: transparent;
+      padding: 16px 0;
+      cursor: pointer;
+      border: none;
+      &:active {
+        color: $blue;
+        background-color: $gray-1;
+      }
     }
   }
 }

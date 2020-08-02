@@ -6,13 +6,19 @@ import Statistics from '@/views/Statistics.vue';
 import NotFound from '@/views/NotFound.vue';
 import EditLabel from '@/views/EditLabel.vue';
 import BookKeeping from '../views/BookKeeping.vue';
+import Home from '../views/home/Home.vue';
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    redirect: '/bookkeeping'
+    redirect: '/home'
+  },
+  {
+    path: '/home',
+    name: 'Home',
+    component: Home
   },
   {
     path: '/bookkeeping',

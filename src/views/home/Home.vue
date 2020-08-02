@@ -45,7 +45,7 @@
             </ol>
           </li>
         </ol>
-        <div v-else>还没有收入哦~</div>
+        <div v-else>暂无记录~</div>
       </div>
     </div>
   </Layout>
