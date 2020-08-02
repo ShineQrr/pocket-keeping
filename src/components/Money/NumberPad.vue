@@ -55,14 +55,28 @@ export default class NumberPad extends Vue {
     // if (this.output.length === 16) {
     //   return;
     // }
+    // 小数点后最多有2位
+    // if (this.output.toString().split(".")[1].length === 3) {
+    //   return;
+    // }
+
     // 如果输出是0，则下一个输出为输入的值；只能有一个.；
     if (this.output === "0" && "0123456789".includes(input)) {
       this.output = input;
-    } else if (this.output.includes(".") && input === ".") {
+    } else if (this.output.includes(".") && !this.hasPlus && input === ".") {
+      return;
+    } else if (
+      this.output.includes(".") &&
+      this.output.toString().split(".")[1].length === 2 &&
+      !this.hasPlus &&
+      input !== "+"
+    ) {
       return;
     } else {
       this.output += input;
     }
+    // console.log(input);
+    // console.log(this.output);
 
     // 如果存在+或者-，则用另一个显示面板
     if (this.hasPlus && this.hasSubstract) {
@@ -143,6 +157,7 @@ export default class NumberPad extends Vue {
 
 <style lang="scss" scoped>
 @import "~@/assets/style/helper.scss";
+@import "~@/assets/style/var.scss";
 .numberPad {
   .output {
     @extend %clearFix;
@@ -151,7 +166,7 @@ export default class NumberPad extends Vue {
     font-family: Consolas, monospace;
     padding: 9px 16px;
     text-align: right;
-    color: #2b9eed;
+    // color: lighten($red, 15%);
     > .input-number {
       font-size: 12px;
       padding-bottom: 0;
@@ -174,7 +189,7 @@ export default class NumberPad extends Vue {
       &.ok {
         float: right;
         color: white;
-        background-color: #1296db;
+        background-color: lighten($red, 10%);
       }
       $bg: #e7f4fd;
     }
