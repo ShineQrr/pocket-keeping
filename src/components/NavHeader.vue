@@ -31,7 +31,7 @@ export default {
   line-height: 1.5;
   text-align: center;
   background-color: $nav-bar-background-color;
-
+  color: $white;
   .nav-left {
     width: 60px;
   }

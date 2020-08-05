@@ -45,7 +45,7 @@
             </ol>
           </li>
         </ol>
-        <div v-else>暂无记录~</div>
+        <div v-else>暂时还没有记录..快去记一笔吧~</div>
       </div>
     </div>
   </Layout>

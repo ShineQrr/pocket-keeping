@@ -1,9 +1,13 @@
 <template>
   <div>
     <Layout>
-      <!-- <template v-slot:header>
-        <nav-bar></nav-bar>
-      </template>-->
+      <!-- 顶部标题栏 -->
+      <template v-slot:header>
+        <nav-header class="money-nav-header">
+          <template v-slot:center>统计</template>
+        </nav-header>
+      </template>
+
       <!-- 标签页：收入支出切换 -->
       <div class="tab-wrapper">
         <Tabs class-prefix="type" :data-source="recordTypeList" :value.sync="type" />
@@ -27,7 +31,7 @@
           </ol>
         </li>
       </ol>
-      <div v-else>暂无记录~</div>
+      <div v-else>暂时还没有记录..快去记一笔吧~</div>
     </Layout>
   </div>
 </template>
@@ -42,10 +46,11 @@ import clone from "@/lib/clone";
 import Chart from "../components/Chart.vue";
 import * as _ from "lodash";
 import day from "dayjs";
+import NavHeader from "../components/NavHeader.vue";
 // import NavBar from "../components/NavBar.vue";
 
 @Component({
-  components: { Tabs, Chart },
+  components: { Tabs, Chart, NavHeader },
 })
 export default class Statistics extends Vue {
   tagString(tags: Tag[]) {
@@ -234,15 +239,19 @@ export default class Statistics extends Vue {
 //   height: 48px;
 // }
 .tab-wrapper {
+  position: absolute;
+  z-index: 4;
   width: 40%;
-  margin: 0 auto;
+  top: 2%;
+  right: 4%;
+  // margin: 0 auto;
   background-color: $gray-9;
   border-radius: 0.3 * $tab-item-hight;
 }
 ::v-deep {
   .type-tabs-item {
     // background: $gray-9;
-    height: $tab-item-hight;
+    height: 40px;
     font-size: $tab-content-font-size;
     font-weight: 500;
     &.selected {
@@ -280,6 +289,7 @@ export default class Statistics extends Vue {
   color: #999;
 }
 .chart {
+  margin-top: calc(2% + 40px);
   width: 430%;
   height: 30vh;
   &-wrapper {
