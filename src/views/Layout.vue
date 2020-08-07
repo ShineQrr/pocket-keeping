@@ -32,7 +32,8 @@ export default {
   height: 100vh;
 }
 .content {
-  max-height: calc(100% - 44px);
+  position: relative;
+  // max-height: calc(100% - 44px);
   // 当content中内容超出高度，显示滚动条
   overflow: auto;
   // 当flex-container在主轴方向上有剩余size时，flex-grow属性才会生效

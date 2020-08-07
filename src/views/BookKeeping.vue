@@ -152,7 +152,7 @@ export default class BookKeeping extends Vue {
         bottom: 0;
         left: 0;
         width: 100%;
-        height: 2px;
+        height: 3px;
         background: $white;
       }
       // &::after {

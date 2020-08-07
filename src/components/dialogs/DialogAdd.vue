@@ -90,7 +90,7 @@ export default class DialogAdd extends Vue {
     align-items: center;
     box-shadow: inset 0 -3px 3px -3px rgba(0, 0, 0, 0.1);
     .tag-label {
-      padding: 0 24px;
+      padding: 0 calc(5%);
     }
 
     input {
