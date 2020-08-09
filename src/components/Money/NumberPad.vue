@@ -151,6 +151,7 @@ export default class NumberPad extends Vue {
     // 点击ok后恢复初始值
     this.output = "0";
     this.calculateNum = 0;
+    this.$router.replace("/home");
   }
 }
 </script>
@@ -158,6 +159,7 @@ export default class NumberPad extends Vue {
 <style lang="scss" scoped>
 @import "~@/assets/style/helper.scss";
 @import "~@/assets/style/var.scss";
+
 .numberPad {
   .output {
     @extend %clearFix;

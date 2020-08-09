@@ -90,7 +90,8 @@ export default class BookKeeping extends Vue {
   }
 
   goBack() {
-    this.$router.back();
+    // this.$router.back();
+    this.$router.replace("/home");
   }
 }
 </script>
