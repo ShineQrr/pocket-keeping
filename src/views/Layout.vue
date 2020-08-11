@@ -5,10 +5,12 @@
     <header>
       <slot name="header"></slot>
     </header>
+
     <!-- 中间内容区 -->
     <div class="content" :class="classPrefix && `${classPrefix}-content`">
       <slot></slot>
     </div>
+
     <!-- 底部导航栏 -->
     <Nav />
   </div>

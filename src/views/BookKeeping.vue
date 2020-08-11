@@ -78,8 +78,7 @@ export default class BookKeeping extends Vue {
   // 点击ok,触发saveRecord,将当前数据存储到localStorage中
   saveRecord() {
     if (!this.record.tags || this.record.tags.length === 0) {
-      window.alert("请至少选择一个标签");
-      return;
+      return window.alert("请至少选择一个标签");
     }
     // store.createRecord(this.record);
     this.$store.commit("createRecord", this.record);
@@ -119,9 +118,9 @@ export default class BookKeeping extends Vue {
 // .tags-wrapper {
 //   flex: 1;
 // }
-.notes-wrapper {
-  // padding: 12px 0;
-}
+// .notes-wrapper {
+//   // padding: 12px 0;
+// }
 .layout-wrapper {
   display: flex;
 }

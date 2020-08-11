@@ -1,9 +1,12 @@
 <template>
   <div class="numberPad">
+    <!-- 当存在+、-，展示具体面板 -->
     <div v-if="hasPlus || hasSubstract" class="output">
-      <div class="input-number">{{output}}</div>
+      <div class="input-number">{{ output }}</div>
       <div class="calculate-number">{{ calculateNum }}</div>
     </div>
+
+    <!-- 不存在+、-，只展示数值 -->
     <div v-else class="output">{{ output }}</div>
 
     <div class="buttons">
@@ -34,9 +37,13 @@
 <script lang="ts">
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
+import { mixins } from "vue-class-component";
+import NumberValidation from "@/mixins/NumberValidation";
 
-@Component
-export default class NumberPad extends Vue {
+@Component({
+  mixins: [NumberValidation],
+})
+export default class NumberPad extends mixins(NumberValidation) {
   // 初始输出值为0
   output = "0";
   calculateNum = 0;
@@ -47,36 +54,61 @@ export default class NumberPad extends Vue {
     return this.output.includes("-");
   }
 
+  // 当存在+-时候，验证最后一个数值 toValiatedOutput
+  get toValiatedOutput() {
+    return this.output.split(/[+-]/)[this.output.split(/[+-]/).length - 1];
+  }
+
   // 点击数字按钮与. 则执行inputContent
   inputContent(event: MouseEvent) {
     const button = event.target as HTMLButtonElement;
     const input = button.textContent as string;
+
     // 输入长度最大为16
     // if (this.output.length === 16) {
     //   return;
     // }
-    // 小数点后最多有2位
-    // if (this.output.toString().split(".")[1].length === 3) {
-    //   return;
-    // }
 
-    // 如果输出是0，则下一个输出为输入的值；只能有一个.；
+    // 不存在+ -的判断
+    // 如果输出是0，则下一个输出为输入的值；
     if (this.output === "0" && "0123456789".includes(input)) {
       this.output = input;
-    } else if (this.output.includes(".") && !this.hasPlus && input === ".") {
-      return;
     } else if (
-      this.output.includes(".") &&
-      this.output.toString().split(".")[1].length === 2 &&
+      // output只能有一个小数点，且小数点后只能有2位
       !this.hasPlus &&
-      input !== "+"
+      !this.hasSubstract &&
+      input !== "+" &&
+      input !== "-" &&
+      this.validateDecimalPoint(this.output, input)
     ) {
       return;
+    } else if (
+      this.hasPlus &&
+      this.hasSubstract &&
+      input !== "+" &&
+      input !== "-"
+    ) {
+      if (this.validateDecimalPoint(this.toValiatedOutput, input)) {
+        return;
+      } else {
+        this.output += input;
+      }
+    } else if (this.hasPlus && input !== "+" && input !== "-") {
+      if (this.validateDecimalPoint(this.toValiatedOutput, input)) {
+        return;
+      } else {
+        this.output += input;
+      }
+    } else if (this.hasSubstract && input !== "+" && input !== "-") {
+      if (this.validateDecimalPoint(this.toValiatedOutput, input)) {
+        return;
+      } else {
+        this.output += input;
+      }
     } else {
+      // 其他情况，输出只是简单拼接
       this.output += input;
     }
-    // console.log(input);
-    // console.log(this.output);
 
     // 如果存在+或者-，则用另一个显示面板
     if (this.hasPlus && this.hasSubstract) {
@@ -86,23 +118,28 @@ export default class NumberPad extends Vue {
           calculateArr[i] = calculateArr[i]
             .split("-")
             .map((item) => Number(item))
-            .reduce((acc, cur) => acc - cur)
+            .reduce((acc, cur) => (acc * 100 - cur * 100) / 100)
             .toString();
         }
       }
       this.calculateNum = calculateArr
         .map((item) => Number(item))
-        .reduce((acc, cur) => acc + cur);
+        .reduce((acc, cur) => (acc * 100 + cur * 100) / 100);
       // 只有+
     } else if (this.hasPlus && !this.hasSubstract) {
       const calculateArr = this.output.split("+").map((item) => Number(item));
-      this.calculateNum = calculateArr.reduce((acc, cur) => acc + cur);
+      this.calculateNum = calculateArr.reduce(
+        (acc, cur) => (acc * 100 + cur * 100) / 100
+      );
       // 只有-
     } else if (!this.hasPlus && this.hasSubstract) {
       const calculateArr = this.output.split("-").map((item) => Number(item));
-      this.calculateNum = calculateArr.reduce((acc, cur) => acc - cur);
+      this.calculateNum = calculateArr.reduce(
+        (acc, cur) => (acc * 100 - cur * 100) / 100
+      );
     }
   }
+
   // 删除output最后一位数字
   remove() {
     if (this.output.length === 1) {
@@ -118,21 +155,25 @@ export default class NumberPad extends Vue {
           calculateArr[i] = calculateArr[i]
             .split("-")
             .map((item) => Number(item))
-            .reduce((acc, cur) => acc - cur)
+            .reduce((acc, cur) => (acc * 100 - cur * 100) / 100)
             .toString();
         }
       }
       this.calculateNum = calculateArr
         .map((item) => Number(item))
-        .reduce((acc, cur) => acc + cur);
+        .reduce((acc, cur) => (acc * 100 + cur * 100) / 100);
       // 只有+
     } else if (this.hasPlus && !this.hasSubstract) {
       const calculateArr = this.output.split("+").map((item) => Number(item));
-      this.calculateNum = calculateArr.reduce((acc, cur) => acc + cur);
+      this.calculateNum = calculateArr.reduce(
+        (acc, cur) => (acc * 100 + cur * 100) / 100
+      );
       // 只有-
     } else if (!this.hasPlus && this.hasSubstract) {
       const calculateArr = this.output.split("-").map((item) => Number(item));
-      this.calculateNum = calculateArr.reduce((acc, cur) => acc - cur);
+      this.calculateNum = calculateArr.reduce(
+        (acc, cur) => (acc * 100 - cur * 100) / 100
+      );
     }
   }
   // 清空output
@@ -140,18 +181,21 @@ export default class NumberPad extends Vue {
     this.output = "0";
     this.calculateNum = 0;
   }
-  // 点击ok确定
+  // 点击ok确定,传递finalAmount
   determine() {
-    let finalAMount = "";
+    let finalAmount = "";
     this.hasPlus
-      ? (finalAMount = this.calculateNum.toString())
-      : (finalAMount = this.output);
-    this.$emit("update:value", finalAMount);
-    this.$emit("submit", finalAMount);
+      ? (finalAmount = this.calculateNum.toString())
+      : (finalAmount = this.output);
+    if (finalAmount === "0") {
+      return window.alert("请输入金额");
+    }
+    this.$emit("update:value", finalAmount);
+    this.$emit("submit", finalAmount);
     // 点击ok后恢复初始值
     this.output = "0";
     this.calculateNum = 0;
-    this.$router.replace("/home");
+    // this.$router.replace("/home");
   }
 }
 </script>
