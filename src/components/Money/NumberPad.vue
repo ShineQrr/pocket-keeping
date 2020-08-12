@@ -64,15 +64,17 @@ export default class NumberPad extends mixins(NumberValidation) {
     const button = event.target as HTMLButtonElement;
     const input = button.textContent as string;
 
-    // 输入长度最大为16
-    // if (this.output.length === 16) {
-    //   return;
-    // }
-
     // 不存在+ -的判断
     // 如果输出是0，则下一个输出为输入的值；
     if (this.output === "0" && "0123456789".includes(input)) {
       this.output = input;
+    } else if (
+      // 运算符+-后如果输入小数点，默认在小数点前补0
+      (this.output[this.output.length - 1] === "+" ||
+        this.output[this.output.length - 1] === "-") &&
+      input === "."
+    ) {
+      this.output += "0" + input;
     } else if (
       // output只能有一个小数点，且小数点后只能有2位
       !this.hasPlus &&
