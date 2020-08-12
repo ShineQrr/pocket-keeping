@@ -105,6 +105,15 @@ export default class NumberPad extends mixins(NumberValidation) {
       } else {
         this.output += input;
       }
+    } else if (
+      // 当运算符连续，以后输入的为主
+      (this.output[this.output.length - 1] === "+" ||
+        this.output[this.output.length - 1] === "-") &&
+      (input === "+" || input === "-")
+    ) {
+      const transformOutput = this.output.split("");
+      transformOutput[transformOutput.length - 1] = input;
+      this.output = transformOutput.join("");
     } else {
       // 其他情况，输出只是简单拼接
       this.output += input;
